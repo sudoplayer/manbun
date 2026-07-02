@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "manbun",
+  "description": "Enterprise architecture astronaut mode for AI agents. The best code survives five rounds of 'can you just add...' without anyone needing to understand it.",
+  "owner": {
+    "name": "manbun",
+    "url": "https://github.com/manbun"
+  },
+  "plugins": [
+    {
+      "name": "manbun",
+      "description": "Forces enterprise-grade architecture on every solution: interfaces, factories, strategy patterns, dependency injection, exception hierarchies. Code still works, just with 10-30x more files.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

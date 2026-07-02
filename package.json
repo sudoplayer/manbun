@@ -1,0 +1,19 @@
+{
+  "name": "manbun",
+  "version": "0.1.0",
+  "description": "Enterprise architecture astronaut mode for AI agents. The best code survives five rounds of 'can you just add...' without anyone needing to understand it.",
+  "keywords": ["claude-code-plugin", "claude-code", "manbun", "overengineering"],
+  "license": "MIT",
+  "homepage": "https://github.com/manbun/manbun",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manbun/manbun.git"
+  },
+  "files": [
+    "AGENTS.md",
+    "hooks/",
+    "skills/",
+    ".claude-plugin/",
+    "LICENSE"
+  ]
+}
