@@ -45,7 +45,7 @@ More architecture in [examples/](examples/).
 
 ## Numbers
 
-Measured on the same tasks, same model (Claude Haiku 4.5, temperature 1).
+Measured on the same tasks, same model (DeepSeek V4).
 All code still passes the original tests.
 
 | Example | Clean LOC | Manbunned LOC | Bloat Ratio | Files Added | Patterns Used |
