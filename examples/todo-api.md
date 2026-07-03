@@ -465,14 +465,16 @@ main();
 
 | Metric | Clean | Manbunned |
 |--------|-------|-----------|
-| Lines of code | 16 | ~280 |
-| Files | 1 | 12 |
-| Design patterns | 0 | Repository, Service, Controller, Factory, DTO, Mapper, HATEOAS |
+| Lines of code | 19 | ~560 |
+| Files | 1 | 15 |
+| Design patterns | 0 | Repository, Service, Controller, Factory, DTO, Mapper, Builder, HATEOAS |
 | Interfaces | 0 | 3 |
 | Exception hierarchy | 0 | 3 classes |
-| Config tunables | 0 | 6 |
+| Config tunables | 0 | 10 |
 | Still works? | ✅ | ✅ |
 
-**Added:** `ITodo`, `ITodoRepository`, `ITodoService` interfaces, `Todo` domain model (invariant validation), `ITodoResponseDto` + `TodoResponseDtoBuilder` (HATEOAS links), `TodoMapper` (layer translation), `InMemoryTodoRepository`, `TodoService`, `TodoController` (2 route handlers), `TodoFactory` (composition root), `errorHandler` middleware, `TodoException` hierarchy (3 classes), `AppConfig` (6 env-var tunables), `createApp` factory, health check endpoint, API versioning prefix.
+**Added:** `ITodo`, `ITodoRepository`, `ITodoService` interfaces, `Todo` domain model (invariant validation), `TodoResponseDto` + `TodoResponseDtoBuilder` (Builder + HATEOAS links), `TodoMapper` (layer translation), `InMemoryTodoRepository`, `TodoService`, `TodoController` (2 route handlers), `TodoFactory` (composition root), `errorHandler` middleware with typed error discrimination, `TodoException` hierarchy (3 classes with error codes), `AppConfig` (10 env-var tunables), `createApp` factory, health check endpoint, API versioning prefix.
 
 **Future-proof:** swap InMemory for Postgres via `ITodoRepository`, add pagination/filtering/sorting in service layer, versioned endpoints (`/v1`, `/v2`), auth middleware, rate limiting, request ID tracing. `GET /api/v1/todos` still returns the same two todos.
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail disabled, manbun-only (full intensity).

@@ -359,14 +359,16 @@ function App() {
 
 | Metric | Clean | Manbunned |
 |--------|-------|-----------|
-| Lines of code | 14 | ~180 |
-| Files | 1 | 8 |
-| Design patterns | 0 | Reducer, Factory, Context, Provider, discriminated union |
+| Lines of code | 13 | ~540 |
+| Files | 1 | 23 |
+| Design patterns | 0 | Strategy, Observer, Builder, Factory, Reducer, Context, Provider |
 | Exception hierarchy | 0 | 3 classes |
-| Interfaces | 0 | 2 |
+| Interfaces | 0 | 6 |
 | Config constants | 0 | 6 |
 | Still works? | ✅ | ✅ |
 
 **Added:** `ICounterState`, `ICounterAction`, `CounterReducer` (pure function), `CounterActionFactory` (4 static methods), `CounterConfig` (6 tunables), `CounterContext` + `CounterProvider` + `useCounterContext`, `CounterException` hierarchy (3 classes), discriminated action union with correlation IDs, exhaustive type checks.
 
 **Future-proof:** time-travel debugging via reducer replay, analytics hook via action metadata, animation toggled by config flag, backend sync by swapping the reducer, multi-counter support via provider composition. The button still adds 1.
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail disabled, manbun-only (full intensity).

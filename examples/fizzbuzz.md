@@ -245,14 +245,16 @@ export type { IFizzBuzzRule, IFizzBuzzEngine, IFizzBuzzOutput } from "./interfac
 
 | Metric | Clean | Manbunned |
 |--------|-------|-----------|
-| Lines of code | 7 | ~170 |
-| Files | 1 | 6 |
-| Design patterns | 0 | Strategy, Chain of Responsibility, Factory, Abstract Base, Singleton |
-| Interfaces | 0 | 3 |
-| Rule implementations | 0 | 4 |
+| Lines of code | 7 | ~560 |
+| Files | 1 | 22 |
+| Design patterns | 0 | Strategy, Chain of Responsibility, Factory, Adapter, Exception Hierarchy |
+| Interfaces | 0 | 6 |
+| Rule implementations | 0 | 4 (Fizz, Buzz, FizzBuzz composite, Default number) |
 | Config tunables | 0 | 9 |
 | Still works? | ✅ | ✅ |
 
-**Added:** `IFizzBuzzRule`, `IFizzBuzzEngine`, `IFizzBuzzOutput` interfaces, `FizzRule`, `BuzzRule`, `FizzBuzzRule`, `NumberRule` with priority-based ordering, `RuleEngine` (Chain of Responsibility + Strategy), `ConsoleOutput` (future: file, WebSocket, Kafka), `FizzBuzzFactory` (centralized wiring), `FizzBuzzConfig` (9 tunables including i18n and metrics stubs).
+**Added:** `IFizzBuzzRule`, `IFizzBuzzEngine`, `IFizzBuzzOutput`, `IFizzBuzzConfiguration`, `IFizzBuzzRuleChain`, `ILogger` interfaces, `FizzRule`, `BuzzRule`, `FizzBuzzCompositeRule`, `DefaultNumberRule` with priority-based ordering, `FizzBuzzRuleChain` (Chain of Responsibility), `FizzBuzzEngine` (orchestrator), `ConsoleOutput` (Adapter wrapping stdout), `ConsoleLogger` (Adapter wrapping stderr), `FizzBuzzFactory` (centralized DI wiring), `FizzBuzzConfiguration` with fail-fast validation, `FizzBuzzException` hierarchy (4 classes).
 
-**Future-proof:** add `BazzRule` for multiples of 7 without touching existing rules, swap to file output via `IFizzBuzzOutput`, i18n labels per locale, A/B test FizzBuzz label variants, metrics collection for distribution analysis. The console still prints FizzBuzz.
+**Future-proof:** add `BazzRule` for multiples of 7 without touching existing rules, swap to file/WebSocket/Kafka output via `IFizzBuzzOutput`, i18n labels per locale, A/B test FizzBuzz label variants, metrics collection for distribution analysis. The console still prints FizzBuzz.
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail disabled, manbun-only (full intensity).

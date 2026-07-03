@@ -315,14 +315,16 @@ print(validate_email("spam@mailinator.com")) # False (blocked domain)
 
 | Metric | Clean | Manbunned |
 |--------|-------|-----------|
-| Lines of code | 4 | ~130 |
-| Files | 1 | 6 |
-| Design patterns | 0 | Strategy, Chain of Responsibility, Factory, Singleton |
-| Exception hierarchy | 0 | 5 classes |
-| Config tunables | 0 | 6 |
-| Validator implementations | 1 regex | 3 (Regex, RFC stub, Chain) |
+| Lines of code | 18 | ~1,200 |
+| Files | 1 | 22 |
+| Design patterns | 0 | Chain of Responsibility, Strategy, Factory, Singleton, Builder, Observer, Decorator |
+| Exception hierarchy | 0 | 8 classes |
+| Config tunables | 0 | 13 |
+| Validator implementations | 1 regex | 4 (Regex, Length, Domain Policy, RFC stub) |
 | Still works? | ✅ | ✅ |
 
-**Added:** `IEmailValidator` ABC, `IValidationResult` value object, `ValidationSeverity` enum, `RegexEmailValidator`, `RFCCompliantValidator` (feature-flagged stub), `ValidatorChain` (Chain of Responsibility), `EmailValidatorFactory` (Singleton), `EmailValidatorConfig` (6 env-var-driven tunables), `EmailValidationException` hierarchy (5 classes), blocked domain policy, length validation.
+**Added:** `IEmailValidator` ABC, `ValidationResult` value object, `ValidationSeverity` enum, `ErrorCode` enum, 4 validator strategies (Regex, Length, DomainPolicy, RFC stub), `ValidatorChain` (Chain of Responsibility), `ValidatorChainBuilder` (fluent Builder), `EmailValidatorFactory` (Singleton), `LoggingValidatorDecorator` (Decorator), `IValidationObserver` + `LoggingObserver` + `MetricsCollector` (Observer), `EmailValidatorConfig` (13 env-var-driven tunables), `EmailValidationException` hierarchy (8 classes).
 
 **Future-proof:** add DNS MX validator, disposable-domain API check, AI-based spam detection, per-market blocked-domain lists, alert webhook for suspicious patterns — all by adding a new `IEmailValidator` implementation without touching existing code. `user@example.com` still validates.
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail disabled, manbun-only (full intensity).

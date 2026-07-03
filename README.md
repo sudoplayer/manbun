@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/code%20bloat-10~30x-ff6b6b?style=flat-square" alt="10-30x code bloat">
+  <img src="https://img.shields.io/badge/code%20bloat-30~80x-ff6b6b?style=flat-square" alt="30-80x code bloat">
   <img src="https://img.shields.io/badge/design%20patterns-all%20of%20them-764ba2?style=flat-square" alt="All design patterns">
   <img src="https://img.shields.io/badge/still%20works-yes-4ecdc4?style=flat-square" alt="Still works">
   <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="MIT license">
@@ -29,32 +29,36 @@ With manbun:
 
 ```
 src/counter/
-├── interfaces/ICounterState.ts
-├── types/CounterAction.ts
-├── implementations/CounterReducer.ts
-├── factories/CounterActionFactory.ts
-├── config/CounterConfig.ts
-├── context/CounterContext.tsx
-├── exceptions/CounterExceptions.ts
-└── components/Counter.tsx
+├── interfaces/   (ICounterState, ICounterOperation, ICounterStrategy, ICounterObserver, ICounterService, ICounterProps, ICounterConfig)
+├── strategies/   (IncrementStrategy, DecrementStrategy, ResetStrategy, CounterStrategyFactory)
+├── services/     (CounterService)
+├── observers/    (CounterEventBus, CounterLogger)
+├── builders/     (CounterBuilder — fluent API)
+├── factories/    (CounterFactory)
+├── config/       (CounterConfig)
+├── exceptions/   (CounterException, CounterOverflowException, CounterUnderflowException)
+└── components/   (Counter, CounterDisplay, CounterButton)
 ```
 
-180 lines, 8 files, 5 design patterns. The button still adds 1.
+~540 lines, 23 files, 5 design patterns. The button still adds 1.
 
 More architecture in [examples/](examples/).
 
 ## Numbers
 
-Measured on the same tasks, same model (DeepSeek V4).
-All code still passes the original tests.
+Measured on the same tasks, same model (DeepSeek V4 Pro). Ponytail disabled to prevent cross-contamination. All code still passes the original tests.
 
 | Example | Clean LOC | Manbunned LOC | Bloat Ratio | Files Added | Patterns Used |
 |---|--:|--:|--:|--:|---|
-| [Counter](examples/counter.md) | 14 | ~180 | 13x | 7 extra | Reducer, Factory, Context, Provider, Union Types |
-| [Debounce](examples/debounce.md) | 10 | ~155 | 15x | 4 extra | Strategy, DI, Exception Hierarchy, Config |
-| [Email Validation](examples/email-validation.md) | 4 | ~130 | 33x | 5 extra | Chain of Responsibility, Factory, Singleton, ABC |
+| [Counter](examples/counter.md) | 13 | ~540 | 42x | 22 extra | Strategy, Observer, Builder, Factory, Context, Provider |
+| [Debounce](examples/debounce.md) | 22 | ~930 | 42x | 15 extra | Strategy, Observer, Factory, Config, DI, Exception Hierarchy |
+| [Email Validation](examples/email-validation.md) | 18 | ~1,200 | 67x | 21 extra | Chain of Responsibility, Strategy, Factory, Builder, Observer, Decorator |
+| [FizzBuzz](examples/fizzbuzz.md) | 7 | ~560 | 79x | 21 extra | Strategy, Chain of Responsibility, Factory, Adapter, Exception Hierarchy |
+| [Todo API GET](examples/todo-api.md) | 19 | ~560 | 30x | 14 extra | Repository, Service, Controller, Factory, DTO, Mapper, Builder, HATEOAS |
 
-**~10-30x more code · ~5-10x more files · ~5 design patterns per task · still works**
+**~30-80x more code · ~15-22x more files · ~5-7 design patterns per task · still works**
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail plugin disabled, manbun-only (full intensity). 
 
 ## How it works
 
@@ -95,8 +99,8 @@ Never compromised: functional correctness, input validation, error handling, sec
 | Level | What changes |
 |-------|-------------|
 | **lite** | Interfaces + DI + Config. Every function → class. 1 → 3-5 files. ~3-5x code. |
-| **full** | Full enterprise: Factory + Strategy + Observer + Exception hierarchy + logging middleware. 1 → 7-15 files. Default. |
-| **ultra** | FAANG-scale: + event sourcing + CQRS + feature flags + metrics + i18n. 1 → 15-30 files. ~10-30x code. |
+| **full** | Full enterprise: Factory + Strategy + Observer + Exception hierarchy + logging middleware. 1 → 15-23 files. ~30-80x code. Default. |
+| **ultra** | FAANG-scale: + event sourcing + CQRS + feature flags + metrics + i18n. 1 → 30-50 files. ~80-200x code. |
 
 ```bash
 export MANBUN_DEFAULT_MODE=ultra  # go big or go home
@@ -164,7 +168,7 @@ Say **"shave the manbun"** or **"simple mode"** at any time.
 | Persona | Lazy senior dev, ponytail, says nothing | Architecture astronaut, manbun, never stops talking |
 | Goal | Least code that works | Most architecture that still works |
 | Ladder | 6 rungs, top wins | 9 rungs, climb them all |
-| LOC impact | -54% (up to -94%) | +1,000% to +3,000% |
+| LOC impact | -54% (up to -94%) | +3,000% to +8,000% |
 | File impact | Fewest possible | Most defensible |
 | Design patterns | Avoids them | All of them |
 | Safety | Never cuts validation, security | Never cuts functionality, tests |
@@ -174,9 +178,11 @@ Same coin, opposite sides. Pick your fighter.
 
 ## Examples
 
-- [Counter](examples/counter.md) — React/TS: 14 → 180 lines
-- [Debounce](examples/debounce.md) — TypeScript: 10 → 155 lines
-- [Email Validation](examples/email-validation.md) — Python: 4 → 130 lines
+- [Counter](examples/counter.md) — React/TS: 13 → ~540 lines (42x)
+- [Debounce](examples/debounce.md) — TypeScript: 22 → ~930 lines (42x)
+- [Email Validation](examples/email-validation.md) — Python: 18 → ~1,200 lines (67x)
+- [FizzBuzz](examples/fizzbuzz.md) — TypeScript: 7 → ~560 lines (79x)
+- [Todo API GET](examples/todo-api.md) — Express/TS: 19 → ~560 lines (30x)
 
 ## License
 

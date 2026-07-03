@@ -255,12 +255,14 @@ searchInput.addEventListener("blur", () => debounceManager.cancel());
 
 | Metric | Clean | Manbunned |
 |--------|-------|-----------|
-| Lines of code | 10 | ~155 |
-| Files | 1 | 5 |
-| Design patterns | 0 | Strategy, Config, Exception hierarchy |
-| Testable units | 0 | 3 (Manager, Config, Exceptions) |
+| Lines of code | 22 | ~930 |
+| Files | 1 | 16 |
+| Design patterns | 0 | Strategy, Observer, Factory, Config, Exception hierarchy |
+| Testable units | 0 | 8 (Manager, Config, 3 Strategies, EventBus, Logger, Exceptions) |
 | Still works? | ✅ | ✅ |
 
-**Added:** `IDebounceStrategy` interface, `DebounceManager` class with DI constructor, `DebounceConfig` (5 tunables), `DebounceException` hierarchy (3 classes), leading/trailing edge support, invocation counter, delay validation with clamping, structured logging hook, cancel-on-blur hygiene.
+**Added:** `IDebounceStrategy` interface, `IEdgeBehaviorStrategy` (3 implementations: trailing/leading/combined), `IDebounceObserver` + `DebounceEventBus` + `DebounceLogger`, `ILogger` stdlib wrapper, `DebounceManager` class with DI constructor, `DebounceConfig` (5 tunables), `DebounceException` hierarchy (5 classes), invocation counter, delay validation with clamping, cancel-on-blur hygiene.
 
-**Future-proof:** swap debounce algorithm (throttle, RAF-throttle) via `IDebounceStrategy`, metrics collection via `logInvocation` hook, feature-flagged UX per market, production debugging via `LOG_INVOCATIONS` flag. The input still debounces API calls.
+**Future-proof:** swap debounce algorithm (throttle, RAF-throttle) via `IDebounceStrategy`, metrics collection via Observer, feature-flagged UX per market, production debugging via `LOG_INVOCATIONS` flag. The input still debounces API calls.
+
+> Verified 2026-07-03 with deepseek-v4-pro, ponytail disabled, manbun-only (full intensity).
