@@ -1,10 +1,10 @@
 {
   "name": "manbun",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enterprise architecture astronaut mode. Forces maximum abstraction, design patterns, and production-ready overengineering on every solution. Code still works — it's just impossible to understand without a whiteboard.",
   "author": {
     "name": "manbun",
-    "url": "https://github.com/manbun"
+    "url": "https://github.com/sudoplayer/manbun"
   },
-  "hooks": "./hooks/claude-codex-hooks.json"
+  "hooks": "./hooks/claude-hooks.json"
 }

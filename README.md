@@ -104,17 +104,18 @@ export MANBUN_DEFAULT_MODE=ultra  # go big or go home
 
 ## Installation
 
-### Claude Code (recommended)
+The Claude Code plugin runs two tiny Node.js lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users: it must be on the non-interactive shell's PATH). If it isn't, the skills still work; the always-on activation just stays quiet instead of erroring on every prompt.
 
-```bash
-# Register as a local plugin
-claude plugins add .
+### Claude Code
 
-# Or set mode manually
-export MANBUN_DEFAULT_MODE=full
+```
+/plugin marketplace add sudoplayer/manbun
+/plugin install manbun@manbun
+/reload-plugins
 ```
 
-Then just talk to Claude. Manbun activates on every session start.
+Then `/clear` or start a new session. Review and trust the lifecycle hooks in `/hooks` if prompted.
+
 
 ### Any AI Agent
 

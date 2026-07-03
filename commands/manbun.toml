@@ -1,0 +1,2 @@
+description = "Switch manbun intensity level (lite/full/ultra/off)"
+prompt = "Switch to manbun {{args}} mode. If no level specified, use full. Architecture astronaut mode: climb every rung of the ladder — interfaces, factories, DI, config externalization, exception hierarchies, design patterns, layered architecture. Every concrete class implements an interface. Mark decisions with manbun: comments."

@@ -10,31 +10,25 @@ const fs = require('fs');
 const path = require('path');
 const { getDefaultMode, getClaudeDir, isShellSafe } = require('./manbun-config');
 const { getManbunInstructions } = require('./manbun-instructions');
+const { clearMode, setMode, writeHookOutput } = require('./manbun-runtime');
 
 const claudeDir = getClaudeDir();
 const settingsPath = path.join(claudeDir, 'settings.json');
 
 const mode = getDefaultMode();
 
-// "off" mode — skip activation entirely
+// "off" mode — skip activation entirely, don't write flag or emit rules
 if (mode === 'off') {
-  try {
-    const flagPath = path.join(claudeDir, '.manbun-active');
-    if (fs.existsSync(flagPath)) fs.unlinkSync(flagPath);
-  } catch (e) {
-    // Silent fail
-  }
-  process.stdout.write('OK\n');
+  clearMode();
+  writeHookOutput('SessionStart', 'off', 'OK');
   process.exit(0);
 }
 
-// 1. Write flag file for statusline
+// 1. Write flag file
 try {
-  const flagPath = path.join(claudeDir, '.manbun-active');
-  fs.mkdirSync(claudeDir, { recursive: true });
-  fs.writeFileSync(flagPath, mode, 'utf8');
+  setMode(mode);
 } catch (e) {
-  // Silent fail — flag is best-effort
+  // Silent fail — flag is best-effort, don't block the hook
 }
 
 // 2. Emit the manbun ruleset, filtered to the active intensity level.
@@ -45,7 +39,7 @@ try {
   let hasStatusline = false;
   if (fs.existsSync(settingsPath)) {
     // Strip UTF-8 BOM some editors prepend on Windows (breaks JSON.parse)
-    const raw = fs.readFileSync(settingsPath, 'utf8').replace(/^﻿/, '');
+    const raw = fs.readFileSync(settingsPath, 'utf8').replace(/^\uFEFF/, '');
     const settings = JSON.parse(raw);
     if (settings.statusLine) {
       hasStatusline = true;
@@ -82,7 +76,7 @@ try {
 }
 
 try {
-  process.stdout.write(output + '\n');
+  writeHookOutput('SessionStart', mode, output + '\n');
 } catch (e) {
   // Silent fail — stdout closed/EPIPE at hook exit must not surface as a hook failure
 }
