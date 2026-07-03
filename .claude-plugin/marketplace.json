@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "manbun",
-  "description": "Enterprise architecture astronaut mode for AI agents. The best code survives five rounds of 'can you just add...' without anyone needing to understand it.",
+  "description": "Enterprise architecture astronaut mode for AI agents. The best code is the code ready for a future that never arrives.",
   "owner": {
     "name": "manbun",
     "url": "https://github.com/manbun"
