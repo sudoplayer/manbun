@@ -102,6 +102,8 @@ Never compromised: functional correctness, input validation, error handling, sec
 export MANBUN_DEFAULT_MODE=ultra  # go big or go home
 ```
 
+In a Claude Code session: `/manbun lite`, `/manbun full`, or `/manbun ultra`. For a persistent default without exporting each time, use `~/.config/manbun/config.json` — e.g. `{"defaultMode": "ultra"}`.
+
 ## Installation
 
 The Claude Code plugin runs two tiny Node.js lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users: it must be on the non-interactive shell's PATH). If it isn't, the skills still work; the always-on activation just stays quiet instead of erroring on every prompt.
@@ -116,6 +118,36 @@ The Claude Code plugin runs two tiny Node.js lifecycle hooks, so `node` needs to
 
 Then `/clear` or start a new session. Review and trust the lifecycle hooks in `/hooks` if prompted.
 
+### Status line (optional badge)
+
+Manbun activates on every session start even without this step. The status line is only a small badge in the Claude Code footer (e.g. `[MANBUN]` or `[MANBUN:ULTRA]`) so you can see which mode is active.
+
+Claude Code does **not** configure this automatically. Add a `statusLine` entry to `~/.claude/settings.json` (create the file if it does not exist). Replace `<version>` with the folder name under your plugin cache — check with:
+
+```bash
+ls ~/.claude/plugins/cache/manbun/manbun/
+```
+
+Example (Linux/macOS):
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "bash \"$HOME/.claude/plugins/cache/manbun/manbun/<version>/hooks/manbun-statusline.sh\""
+}
+```
+
+On Windows, point `command` at `manbun-statusline.ps1` instead (PowerShell `-File "..."`).
+
+Quick check after saving:
+
+```bash
+bash "$HOME/.claude/plugins/cache/manbun/manbun/<version>/hooks/manbun-statusline.sh"
+```
+
+You should see `[MANBUN]`. Restart Claude Code or start a new session for the footer badge to appear.
+
+When you upgrade the plugin, update `<version>` in that path to match the new cache folder.
 
 ### Any AI Agent
 
